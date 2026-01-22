@@ -1,0 +1,116 @@
+.subscribe-button
+{
+  background: rgb(225,0,0);
+  color: white;
+  border:none;
+  height:2.1875rem;
+  width:7.5rem; 
+  border-radius:.25rem;
+  cursor:pointer ;
+  margin-right:.625rem;
+  transition: opacity 0.19s;
+  vertical-align: top;
+}
+.subscribe-button:hover
+{
+  opacity:0.5;
+}
+.subscribe-button:active
+{
+ opacity:1;
+  background-color: rgba(182, 3, 3, 0.905);
+}
+.join-button
+
+{
+  background-color: white;
+  border-color: rgb(15, 96, 246) ;
+  border-style:  solid;
+  border-width:.0625rem;
+  color: rgb(15, 96, 246) ;
+  height:2.1875rem;
+  width:5rem;
+  border-radius:.125rem;
+  cursor:pointer; 
+  transition: background-color 0.37s,color 0.37s;
+}
+.join-button:hover
+{
+  background-color:rgb(15, 96, 246);
+  color:white;
+
+}
+.join-button:active
+{
+  opacity:0.698;
+}
+
+.tweet-button
+{
+  background-color: rgb(15, 96, 246);
+  color:white;
+  border:none;
+  height:2.1875rem;
+  width:5rem;
+  border-radius:1.125rem;
+  font-weight:bold;
+  font-size:.9375rem;
+  cursor:pointer; 
+  margin-left:.5rem;
+  transition: box-shadow 0.27s;
+
+  
+
+}
+.tweet-button:hover
+{
+  box-shadow:.3125rem .3125rem .375rem rgba(0, 0, 0, 0.361);
+  
+}
+.tweet-button:active
+{
+  opacity:0.698;
+  box-sizing: border-box;
+}
+
+.video-title
+{
+ font-family: Arial;
+ font-size: 18px;
+ font-weight:bold;
+ margin-bottom:5px;
+ width:300px;
+ line-height:24px;
+}
+.video-stats
+{
+  font-family: Arial;
+  font-size: 14px;
+  color: rgb(96,96,96);
+  margin-top :0;
+}
+.video-link:hover
+
+{
+  color:red;
+  cursor:pointer;
+  text-decoration:underline;
+}
+.video-promo
+{
+  font-family: Balboa Plus;
+  background-color:rgb(25, 236, 85);
+  font-size: 20px;
+  color: rgb(33,33,33);
+  width:300px;
+  white-space: nowrap;
+  
+  text-overflow: ellipsis;
+   
+  border-radius: 30px;
+  padding-top:40px;
+  padding-bottom:40px;
+  padding-right:240px;
+  padding-left:50px;
+
+}

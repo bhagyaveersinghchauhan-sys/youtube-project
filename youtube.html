@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>
+          youtube clone
+          </title>
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+          <style>
+              p{
+                  font-family:Roboto,Arial;
+                  margin-top:0;
+                  margin-bottom:0;
+              }
+              .Search-bar
+              {
+              display:block;
+              }
+              .thumbnail
+              {
+              /* make the thumbnail scale to the preview box */
+              width:100%;
+              display:block;
+              border-radius:10px;
+              transition: transform 0.25s ease;
+              }  
+              
+              .video-author,
+              .video-stats
+              {
+                  display:block;
+              }
+              .video-author
+              {
+                  margin-bottom:2px;;
+              }
+              .video-preview
+              {
+                  /* simple 3-column layout using width + margin */
+                  display:inline-block;
+                  width:auto; /* three columns */
+                  vertical-align:top;
+                  margin-right:10px; /* gap between columns */
+                  box-sizing:border-box;
+              }
+
+              /* remove the right gap on every 3rd item so columns align */
+              
+              .channel-pics
+              {
+                vertical-align:top;
+              }
+              .thumbnail:hover{
+                  transform:scale(1.009);
+              }
+              .video-info
+              {
+                  text-align:left;
+                  width:250px;
+                  flex:1;
+              }
+                .profile-picture
+                {
+                  width:34px;
+                  height:34px;
+                  border-radius:40px;
+                } 
+                .video-title
+                {
+                  margin-top:0;
+                  font-size:15px;
+                  font-weight:700;
+                  line-height:20px;
+                  margin-bottom:2px;
+                }
+                .thumbnail-row
+                {
+                  position:relative;
+                  margin-bottom:5px;
+                }
+                  .timestamp
+                  {
+                      position:absolute;
+                      bottom:5px;
+                      right:5px;
+                      background:rgba(0, 0, 0, 0.8);
+                      color:white;
+                      padding:2px 5px;
+                      font-size:10px;
+                      border-radius:3px ;
+                  }
+                  .menudots
+                  {
+                      position:absolute;
+                      bottom:-38px;
+                      right: 0px;
+                      font-size:25px;
+                      color:rgb(0, 0, 0);
+                      opacity:0.8;
+                        background:rgba(0, 0, 0, 0);
+                      cursor:pointer; 
+                      padding:4px;
+                      padding-top:2px; 
+                      display:inline-flex;  
+                      align-items:center;       
+                      justify-content:center;   
+                  }
+                  .menudots:hover
+                  {
+                      background:rgba(170, 170, 170, 0.594);
+                      border-radius:24px;
+                      color:rgb(0, 0, 0);
+                      opacity:0.6;
+                      
+                  }
+                  .menudots:active
+                  {
+                      background:rgb(104, 97, 97);
+                      border-radius:24px;
+                      opacity:0.8;
+                  }
+                  .dots-menu
+                  {
+                      position:absolute;
+                      top:30px;
+                      right :0;
+                      background:rgb(204, 196, 196) ;
+                      border: 1px solid #ddd;
+                      border-radius: 10px;
+                      font-size:14px;
+                      width:180px;
+                      padding:5px 0;
+                      display:none;
+                      z-index:20;
+                      box-shadow:0 4px 12px rgba(0,0,0,.15);
+                  }
+                  .dots-menu p 
+                  {
+                      margin:0;
+                      padding:7px 10px ;
+                      cursor:pointer;
+                      displaY:flex;
+                      align-items:center;
+                  }
+                  .dots-menu p:hover
+                    {
+                    background: #f2f2f2;
+                  }
+                  .menu-icon
+                  {
+                      width:16px;
+                      height:16px;
+                      margin-right:10px;
+                      vertical-align:middle;
+                  }
+                .video-author,.video-stats
+                {
+                  font-size:12.5px;
+                  color:rgb(96, 96, 96, 1);
+                }
+                .video-grid
+                {
+                  display:grid;
+                  grid-template-columns:repeat(3,1fr);
+                  gap:20px;
+                  padding:20px;
+                }
+                @media(max-width:750px){
+                  .video-grid
+                {
+                  grid-template-columns:repeat(2,1fr);
+                }
+              }
+              @media(max-width:500px){
+                  .video-grid
+                {
+                  grid-template-columns:1fr;
+                }
+              }
+                
+                .header{
+                  width:100%;
+                  display:flex;
+                  justify-content:center;
+                  align-items:center;
+                  ;
+                  background-color:white;
+                  position:sticky;
+                  top:0;
+                  padding-bottom:0;
+
+                  z-index:4;
+                  
+                }
+                .left-section{
+                  
+                  display:flex;
+                  align-items:center;
+                  margin-left:20px;
+                }
+                  .center-section{
+                      flex:1;
+                      display:flex;
+                      justify-content:center;
+                  }
+                .video-title{
+                  display:flex;
+                  justify-content:space-betweeen;
+                  align-items:start;
+                  width:100%;
+                }
+                .video-info-grid{
+                  display:flex;
+                  gap:12px;
+                  align-items: flex-start; 
+                }
+                .search-container{
+                  display:flex;
+                  width:50%;
+                  max-width:500px;
+                }
+                .right-section{
+                  margin-left:auto;
+                  margin-right:20px;
+                  display:flex;
+                  align-items:center;
+
+                }
+                .dark-button{
+                  width: 32px;
+                  height: 32px;
+                  background: none;
+                  border: none;
+                  cursor: pointer;
+                  font-size: 20px;
+                  }
+                  .dark-icon{
+                      width:20px;
+                      height:20px;
+                      object-fit:contain;
+                      display:block;
+                      pointer-events:none;
+                  }
+                .mic-button{
+                  width:31px;
+                  height:31px;
+                  margin-left:10px;
+    
+                  background:#f1f1f1;
+                  border-radius:50%;
+                  border:none;
+                  display:flex;
+                  padding:7px ;
+                  padding-bottom:8.4px;
+                  padding-right:8px;
+                  justify-content:center;
+                }
+                .Search-bar{
+                  flex:1;
+                  height:30px;
+                  padding:0 12px;
+                  font-size:12px;
+                  border-radius:20;
+                  border:1px solid #ccc;
+                  border-radius:20px  0 0  20px;
+                  outline:none;
+                  margin:0 auto;
+                  display:center;
+                }
+                .search-button{
+                  width:40px;
+                  height:31px;
+                  border:1px solid #ccc;
+                  background:#f8f8f8;
+                  cursor:pointer;
+                  border-radius:0 20px 20px 0;
+                  font-size:15px;
+                  line-height:12px;
+                }
+                .video-dots-wrapper{
+                  position:relative;
+                }
+                .yt-logo{
+                  display:flex;
+                  align-items:center;
+                  margin-right:20px;
+                  cursor:pointer;
+                }
+                .yt-logo-img{
+                  height:100px;
+                  width:auto;
+                  margin-top:-30px;
+                  margin-bottom:-30px;
+                  object-fit:contain;
+                }
+                .category-bar{
+                  
+                width: 100vw;                 /* Full width of the browser */
+                max-width: 100%;              /* Prevents accidental overflow */
+                display: flex;
+                gap: 10px;
+                padding-left:20px;
+                padding-bottom:10px;
+                padding-top:10px;
+
+                overflow-x: auto;             /* Only the categories scroll */
+                overflow-y: hidden;
+                scrollbar-width: none;        /* Hide scrollbar (Firefox) */
+                -ms-overflow-style: none;     /* Hide scrollbar (IE/Edge) */
+                background: white;
+                border-top: 1px solid #ddd;
+                box-sizing: border-box;
+              }
+
+              .category-bar::-webkit-scrollbar {
+                display: none;                /* Hide scrollbar (Chrome/Safari) */
+              }
+
+                
+                .category-bar button{
+                  padding:5.5px 12px;
+                  border-radius:7px;
+                  border:none;
+                  background:#f1f1f1;
+                }
+                .category-bar button:hover{
+                  background:#e2e2e2;
+                  transition:ease 0.3s;
+                }
+                .category-bar button:active{
+                background:#8b8383;
+                }
+                .category-bar::-webkit-scrollbar{
+                  display:none;
+                }
+                .cat-btn{
+                  border:1px solid #ddd;
+                  background:#f1f1f1;
+                  font-size:13.5px;
+                  cursor:pointer;
+                }
+                .cat-btn{
+                  font-family:'Roboto',Arial,sans-serif;
+                  font-weight:700;
+                }
+                /* --------------------------- */
+
+                
+                .dark-mode{
+                  background:#292929;
+                  color:#fff;
+                }
+                .dark-mode .category-bar{
+                  background:#080808;
+                  border-top:1px solid #0f0f0f; 
+                  border:1px solid #2d2a2a;
+                  padding:10px;
+                  padding-left:20px;
+                  padding-right:010px;
+                }
+                .dark-mode .cat-btn{
+                  background:#363535;
+                }
+                .dark-mode .cat-btn:hover{
+                  background:#555;
+                  transition: ease 0.3s;
+                }
+                .dark-mode .cat-btn:active{
+                  background:#b6afaf;
+
+                }
+                .dark-mode .cat-btn{
+                  color:white;
+                  font-weight:700;
+                }
+
+                .dark-mode .header{
+                  background:#0f0f0f;
+                }
+                .dark-mode .Search-bar
+                {
+                  background:#121212;
+                  color:#fff;
+                  border:1px solid #0000003a;
+                }
+                .dark-mode .search-button,
+                .dark-mode .mic-button{
+                  background:#222;
+                  color:white;
+                }
+                .dark-mode .video-author,
+                .dark-mode .video-stats
+                {
+                  color:#aaa;
+                }
+                .dark-mode .dots-menu
+                {
+                  background:#202020;
+                  border-color:#030303;
+                }
+                .dark-mode .dots-menu p:hover {
+                  background:#333;
+                }
+.dark-mode {
+  background-color: #151515;
+  color: white;
+}
+
+.dark-mode .header {
+  background-color: #151515;
+}
+
+.dark-mode .Search-bar {
+  background-color: #222;
+  color: white;
+}
+
+.dark-mode .search-button,
+.dark-mode .mic-button,
+.dark-mode .dark-button {
+  background-color: #333;
+}
+
+.dark-mode p,
+.dark-mode span {
+  color: white;
+}
+.icon
+{
+filter:invert(0);
+transition:0.2s;
+}
+.dark-mode .icon {
+  filter: invert(1) brightness(1.2);
+}
+.yt-dark { display: none; }
+
+/* When dark mode is ON */
+.dark-mode .yt-light {
+  display: none;
+}
+.dark-mode .yt-dark {
+  display: block;
+}
+
+                
+
+                
+              </style>
+        </head>  
+        <body>
+          <div class = "header">
+              
+              
+          <div class = "left-section">
+                              <div class = "yt-logo">
+                  <img src ="icons/yt-logo.svg" class = "yt-logo-img yt-light ">
+                  <img src ="icons/dark-yt-logo.svg" class = "yt-logo-img yt-dark">
+              </div>
+              </div>
+              <div class = "center-section">
+          <div class = "search-container">
+          <input class="Search-bar" type="text" placeholder="Search"> 
+          <button class = "search-button">🔍</button> 
+          <button class = "mic-button">
+              <img src = "icons/mic.svg" class = "mic-icon icon">
+          </button>
+          
+              </button> 
+          </div>
+          
+
+          </div>
+          <div class = "right-section">
+            <button id="darkToggle" class = "dark-button">
+                  <img src = "icons/dark.svg" class = "dark-icon icon">
+                  </button>
+                  </div>
+                
+          </div>
+            <div class="category-bar">
+<button class="cat-btn">All</button>
+<button class="cat-btn">Music</button>
+<button class="cat-btn">Gaming</button>
+<button class="cat-btn">Movies</button>
+</div>
+          
+          
+
+            <div class="video-grid">
+          <div class="video-preview">
+
+          
+          <div class="thumbnail-row">
+                
+                  
+                <img class = "thumbnail" src="thumbnails/dudeperfect.avif">
+                <div class =  "timestamp"><p>13:45</p></div>
+                <div class = "video-dots-wrapper">
+                <div class =  "menudots icon">⋮</div>
+                <div class = "dots-menu">
+                  
+                  
+                  <p><img src = "icons/ban.svg" class = "menu-icon icon" >Not interested</p>
+                  <p><img src = "icons/minus.svg" class = "menu-icon icon">Don't recommend channel</p>
+                  <p><img src = "icons/bmark.svg" class = "menu-icon icon">Save to playlist</p>
+                  </div>
+                  </div>
+                  
+          </div> 
+          
+
+          <div class="video-info-grid">
+              <div class= "channel-pics">
+                    <img class= "profile-picture" src="channel-profiles/dp-logo.jpg">
+              </div> 
+              <div class="video-info">
+                      <p class="video-title">
+          Average Dude vs. Steph Curry
+                      </p>
+                      <p class="video-author">
+          Dude perfect
+                      </p >                                            
+                      <p class="video-stats">
+          21M views &#8226; 1 year ago                 
+                      </p>
+              </div>  
+          </div> 
+          <!-- ????????????????????????????????????????????????????????????????????????????????????????????? -->
+          </div >     
+          <div class="video-preview">
+                <div class="thumbnail-row">
+                <img class = "thumbnail" src="thumbnails/mrwhosetheboss.avif">
+                <div class =  "timestamp"><p>10:23</p></div>
+                <div class = "video-dots-wrapper">
+                <div class =  "menudots icon">⋮</div>
+                <div class = "dots-menu">
+                  <p><img src = "icons/ban.svg" class = "menu-icon icon" >Not interested</p>
+                  <p><img src = "icons/minus.svg" class = "menu-icon icon">Don't recommend channel</p>
+                  <p><img src = "icons/bmark.svg" class = "menu-icon icon">Save to playlist</p>
+                  </div>
+                  </div>
+          </div> 
+
+
+          <div class = "video-info-grid">
+              <div class= "channel-pics">
+                    <img class= "profile-picture" src="channel-profiles/channels4_profile.jpg">
+              </div> 
+              <div class="video-info">
+                      <p class="video-title">
+          Hands on with North Korea's Illegal Phones
+                      </p>
+                      <p class="video-author">
+          Mrwhosetheboss
+                      </p >                                            
+                      <p class="video-stats">
+          358k views &#8226; 3 hours ago                 
+                      </p>
+              </div>  
+          </div>
+          <!-- ??????????????????????????????????????????????????????????????????????????-->
+            </div >     
+          <div class="video-preview">
+              
+                <div class="thumbnail-row">
+                <img class = "thumbnail" src="thumbnails/bluelock.avif">
+                <div class =  "timestamp"><p>12:10</p></div>
+                <div class = "video-dots-wrapper">
+                <div class =  "menudots icon">⋮</div>
+                <div class = "dots-menu">
+                  <p><img src = "icons/ban.svg" class = "menu-icon icon" >Not interested</p>
+                  <p><img src = "icons/minus.svg" class = "menu-icon icon">Don't recommend channel</p>
+                  <p><img src = "icons/bmark.svg" class = "menu-icon icon">Save to playlist</p>
+                  </div>
+                  </div>
+                  
+          </div> 
+
+
+          <div class = "video-info-grid">
+              <div class= "channel-pics">
+                    <img class= "profile-picture" src="channel-profiles/crunchyroll.jpg">
+              </div> 
+              <div class="video-info">
+                      <p class="video-title">
+          Shidou’s Big Bang Drive Goal | BLUE LOCK
+                      </p>
+                      <p class="video-author">
+          crunchyroll
+                      </p >                                            
+                      <p class="video-stats">
+          4.4M views &#8226; 11 Months ago                 
+                      </p>
+              </div>  
+          </div>
+          </div>
+          <!-- ????????????????????????????????????????????????????????????????????????????????????????????? -->
+              
+          <div class="video-preview">
+                <div class="thumbnail-row">
+                <img class = "thumbnail" src="thumbnails/speedthumbnail.avif">
+                <div class =  "timestamp"><p>33:12</p></div>
+                <div class = "video-dots-wrapper">
+                <div class =  "menudots icon">⋮</div>
+                <div class = "dots-menu">
+                  <p><img src = "icons/ban.svg" class = "menu-icon icon" >Not interested</p>
+                  <p><img src = "icons/minus.svg" class = "menu-icon icon">Don't recommend channel</p>
+                  <p><img src = "icons/bmark.svg" class = "menu-icon icon">Save to playlist</p>
+                  </div>
+                  </div>
+          </div> 
+
+
+          <div class = "video-info-grid">
+              <div class= "channel-pics">
+                    <img class= "profile-picture" src="channel-profiles/speed-profile.jpg">
+              </div> 
+              <div class="video-info">
+                      <p class="video-title">
+          Speed Goes PRO | Episode 3: JOSHNUT(competition of food)
+                      </p>
+                      <p class="video-author">
+          IShowSpeed
+                      </p >                                            
+                      <p class="video-stats">
+          1.4M views &#8226; 3 days ago                 
+                      </p>
+              </div>  
+          </div>
+          </div>
+            <!-- ????????????????????????????????????????????????????????????????????????????????????????????? -->
+              
+          <div class="video-preview">
+                <div class="thumbnail-row">
+                <img class = "thumbnail" src="thumbnails/hq720.avif">
+                <div class =  "timestamp"><p>19:34</p></div>
+                <div class = "video-dots-wrapper">
+                <div class =  "menudots icon">⋮</div>
+                <div class = "dots-menu">
+                  <p><img src = "icons/ban.svg" class = "menu-icon icon" >Not interested</p>
+                  <p><img src = "icons/minus.svg" class = "menu-icon icon">Don't recommend channel</p>
+                  <p><img src = "icons/bmark.svg" class = "menu-icon icon">Save to playlist</p>
+                  </div>
+                  </div>
+          </div> 
+
+
+          <div class = "video-info-grid">
+              <div class= "channel-pics">
+                    <img class= "profile-picture" src="channel-profiles/shubh.jpg">
+              </div> 
+              <div class="video-info">
+                      <p class="video-title">
+          Shubh - Balenci (Official Music Video)
+                      </p>
+                      <p class="video-author">
+          SHUBH
+                      </p >                                            
+                      <p class="video-stats">
+          32M views &#8226; 2months ago                 
+                      </p>
+              </div>  
+          </div>
+          
+          
+
+
+          </div><script>
+  document.querySelectorAll('.video-dots-wrapper').forEach(wrapper => {
+      const dots = wrapper.querySelector('.menudots');
+      const menu = wrapper.querySelector('.dots-menu');
+
+      dots.addEventListener('click', () => {
+          const isVisible = menu.style.display === "block";
+          menu.style.display = isVisible ? "none" : "block";
+      });
+
+      // close menu if clicked outside
+      document.addEventListener("click", (e) => {
+          if (!wrapper.contains(e.target)) {
+              menu.style.display = "none";
+          }
+      });
+  });
+</script>
+<script>
+document.getElementById("darkToggle").addEventListener("click", function() {
+  document.body.classList.toggle("dark-mode");
+});
+</script>
+
+      </body> 
+
+</html>
